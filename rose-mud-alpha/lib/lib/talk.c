@@ -245,7 +245,7 @@ mixed eventTalkRespond(object who, object targ, int cls, string msg, string lang
 }
 
 varargs mixed eventSpeak(object target, int cls, string msg, string lang){
-    string verb, tmp, tmp2;
+    string verb, tmp;
     int cols;
     object env;
 
@@ -335,10 +335,17 @@ varargs mixed eventSpeak(object target, int cls, string msg, string lang){
                     cls,"shout", msg, lang);
             return 1;
 
-        case TALK_LOCAL_OOC:
-            tmp2 = "%^BOLD%^YELLOW%^<OOC> " + previous_object(1)->GetName() + ": " + msg + "%^RESET%^"; 
-            tmp = "%^BOLD%^YELLOW%^<OOC> "+ msg + "%^RESET%^";
-            eventTalkHist(tmp2, "ooc");
+        case TALK_LOCAL_OOC:			
+			if (msg[0] == ':') 
+			{
+				msg = replace_string(msg, ":", "", 1);
+				if (msg[0] == ' ') msg = replace_string(msg, " ", "", 1);
+			}
+			else 
+				msg = ": " + msg;
+			tmp = "%^BOLD%^YELLOW%^<OOC> " + previous_object(1)->GetName() + " " + msg + "%^RESET%^"; 
+
+            eventTalkHist(tmp, "ooc");
             this_object()->eventPrint(tmp, MSG_CONV);
             env->eventHearTalk(this_object(), target, cls, "OOC", msg,
                     lang);
