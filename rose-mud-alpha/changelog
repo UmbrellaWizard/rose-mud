@@ -1,4 +1,9 @@
-7-10-15 **Changelog Pending**
+10-25-15 - Initial github alpha build
+Migrated project to github repository: https://github.com/UmbrellaWizard/rose-mud , updated patch scripts for linux and windows pending.
+Minor formatting cleanup for OOC command output.
+readreport comand has broken code, rewrite pending.
+
+7-10-15
 Much more robust and streamlined application data checking in connect.c.
 Fixed a bug in connect.c which caused multiple entries of the same name in the charname/genderless bugfix list when importing characters.
 Fixed a bug in connect.c that prevented estate directory structure from being generated at the time of character import/creation.
@@ -12,7 +17,7 @@ Fixed formatting errors in readreport.c.
 
 Note: If you have space(s) in your character name, it's possible to login without the spaces. eg Shou Toramaru and shoutoramaru will both log in as Shou Toramaru. However, in the situation where you log in with a new character for the first time since account creation, and the the server has gone offline in this time, you will experience the charname/genderless bug if you did not type the spaces in your character name. To fix this, you will need to relog with the proper spaces in your charname once. After this login, subsequent logins will work regardless of the presence of spaces.
 
-7-6-15 **Changelog Pending**
+7-6-15 
 Minor fix to clean_time.c's string output
 New library valid_date.c checks if a given date is valid. 
 New library cap_string.c capitalizes everything seperated by a whitespace, useful for formatting user input that will be displayed back onscreen.
@@ -21,7 +26,7 @@ New admin command readreport.c allows admins to see reports made with report.c.
 Algorithm in get_idle was completely broken. It should now generate correct differences between dates.
 Fixed some issues with passing second and third arguments to the hist command. Passing a line count as the second argument only does anything for the global public channel. Likewise, passing start and end dates only works for local channels.
 
-7-4-15 **Changelog Pending**
+7-4-15 
 Fixed timestamp offset.
 New library 'clean_time.c' outputs a much nicer timestamp string. The output from hist looks much nicer as a result.
 Everything said to a public room with the 'say' and 'ooc' commands is now saved in logs. Nothing said in private rooms is saved. Hist now parses these logs and returns the backlog from the current room it is called in. Previously, say returned everything your character was present to hear in the say channel, regardless of room, and ooc only returned what your character heard in ooc per room. Now a player can see prior rp or ooc text in the event that they go net_dead. This should not be used to breach seperation of IC and OOC. In the future, these logs can be used to post 'scenes' on the website. 
@@ -31,7 +36,7 @@ Adding a missing element to the gender/name bugfix that properly sets default ch
 Much handier installation. Runme.bat now looks for a backup of your initial ds install at C:\dsbackup. If it finds the files it needs there, it purges only player specific save data and log files from C:\ds and restores the backup equivalents found. If the required files are not found in that location, it simply overwrites c:\ds with my modified files as it did before.
 Fixed broken charlist and idlereport commands caused by changes to log formats. Cleaned up output.
 
-7-1-15 **Changelog Pending**
+7-1-15 
 New library, get_idle, calculates the number of days since a character has logged in and returns it.
 New command idlereport returns a list of characters idle for more than <idlelimit> days. <idlelimit> is 14 by default. If a character name is passed as an argument, it returns the number of days since that character was last seen.
 New save file, pending.o stores a list of characters that have sumbitted apps from the website, but have not yet been approved. Updated connect.c to remove names from this list as they are imported successfully.
@@ -41,7 +46,7 @@ Hist now displays sensible timestamps. I actually had to fix some pre-existing i
 Hist ooc no longer complains that you are not listening to the channel.
 Channel name tags are now capitalized.
 
-6-29-15 **Changelog Pending**
+6-29-15 
 Name/gender bug (hopefully) fixed
 New command charlist displays the list of Windows characters, if a character is approved, pending, open, and how long ago characters were last seen logged in. It also shows approved OCs under their own heading, as well as PC-98s. PC-98 characters are not listed by default, and each character only shows on the list after it's been approved.
 Guest login cleanup, still very WIP - needs default room changed and characteristics such as invisible set, amongst other things.
