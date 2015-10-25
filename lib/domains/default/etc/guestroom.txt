@@ -1,0 +1,4 @@
+
+
+          Welcome to the RoSE Guest Room. To ask questions and converse
+          with other players, type 'pub message here' without the quotes.

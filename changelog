@@ -1,0 +1,132 @@
+7-10-15 **Changelog Pending**
+Much more robust and streamlined application data checking in connect.c.
+Fixed a bug in connect.c which caused multiple entries of the same name in the charname/genderless bugfix list when importing characters.
+Fixed a bug in connect.c that prevented estate directory structure from being generated at the time of character import/creation.
+If a guest is logged in under a name that is created by character import, that guest is now properly destructed.
+Character objects leftover from importing are now properly destructed in connect.c
+Updated charlist.c to be a little more colorful.
+Updated charprofile.c to reflect changes to the data structures it relies on.
+Minor cleanup in report.c and bboard.c.
+Fixed formatting errors in readreport.c.
+/lib/profiles is properly flushed when running the batch installer now.
+
+Note: If you have space(s) in your character name, it's possible to login without the spaces. eg Shou Toramaru and shoutoramaru will both log in as Shou Toramaru. However, in the situation where you log in with a new character for the first time since account creation, and the the server has gone offline in this time, you will experience the charname/genderless bug if you did not type the spaces in your character name. To fix this, you will need to relog with the proper spaces in your charname once. After this login, subsequent logins will work regardless of the presence of spaces.
+
+7-6-15 **Changelog Pending**
+Minor fix to clean_time.c's string output
+New library valid_date.c checks if a given date is valid. 
+New library cap_string.c capitalizes everything seperated by a whitespace, useful for formatting user input that will be displayed back onscreen.
+New command report.c allows players to report abusive behavior to admins.
+New admin command readreport.c allows admins to see reports made with report.c. 
+Algorithm in get_idle was completely broken. It should now generate correct differences between dates.
+Fixed some issues with passing second and third arguments to the hist command. Passing a line count as the second argument only does anything for the global public channel. Likewise, passing start and end dates only works for local channels.
+
+7-4-15 **Changelog Pending**
+Fixed timestamp offset.
+New library 'clean_time.c' outputs a much nicer timestamp string. The output from hist looks much nicer as a result.
+Everything said to a public room with the 'say' and 'ooc' commands is now saved in logs. Nothing said in private rooms is saved. Hist now parses these logs and returns the backlog from the current room it is called in. Previously, say returned everything your character was present to hear in the say channel, regardless of room, and ooc only returned what your character heard in ooc per room. Now a player can see prior rp or ooc text in the event that they go net_dead. This should not be used to breach seperation of IC and OOC. In the future, these logs can be used to post 'scenes' on the website. 
+You can now narrow the output of hist with date ranges! Help hist for more details.
+Fixed a bug that caused hist to complain about not listening to say or ooc until you say something in them, even if they have backlogs. Hist will also now state when there is no backlog for a channel.
+Adding a missing element to the gender/name bugfix that properly sets default character language to common instead of English.
+Much handier installation. Runme.bat now looks for a backup of your initial ds install at C:\dsbackup. If it finds the files it needs there, it purges only player specific save data and log files from C:\ds and restores the backup equivalents found. If the required files are not found in that location, it simply overwrites c:\ds with my modified files as it did before.
+Fixed broken charlist and idlereport commands caused by changes to log formats. Cleaned up output.
+
+7-1-15 **Changelog Pending**
+New library, get_idle, calculates the number of days since a character has logged in and returns it.
+New command idlereport returns a list of characters idle for more than <idlelimit> days. <idlelimit> is 14 by default. If a character name is passed as an argument, it returns the number of days since that character was last seen.
+New save file, pending.o stores a list of characters that have sumbitted apps from the website, but have not yet been approved. Updated connect.c to remove names from this list as they are imported successfully.
+Fixed various bugs in charlist, moved idle day calculation to seperate get_idle library.
+Charlist now has a little more color.
+Hist now displays sensible timestamps. I actually had to fix some pre-existing incomplete/incorrect code that was not getting the channel tag color nor parsing the timestamp info correctly. Everything is correct except the hour. I've yet to find out why it doesn't seem to be generating the correct hour when everything else is fine.
+Hist ooc no longer complains that you are not listening to the channel.
+Channel name tags are now capitalized.
+
+6-29-15 **Changelog Pending**
+Name/gender bug (hopefully) fixed
+New command charlist displays the list of Windows characters, if a character is approved, pending, open, and how long ago characters were last seen logged in. It also shows approved OCs under their own heading, as well as PC-98s. PC-98 characters are not listed by default, and each character only shows on the list after it's been approved.
+Guest login cleanup, still very WIP - needs default room changed and characteristics such as invisible set, amongst other things.
+Guestroom room and description objects created, but not linked to anything yet.
+Various bugs fixed/cleanup in connect.c
+
+---
+
+You must install and setup the dead souls mudlib first! ( http://dead-souls.net/ds-inst-faq.html ). After making an admin character, make a copy of the ds folder to c:\dsbackup as a backup to save yourself from headaches later. Once this is done, run runme.bat and follow the onscreen prompt. If all went well, you should have access to some changes and new features. 
+
+What kind of changes and new features?
+
+New commands:
+/cmds/charprofile.c - Syntax: charprofile <charactername> If called without <charactername>, displays your character's profile information if it exists under /profiles. Calling with <charactername> it will display <charactername>'s profile information, if it exists. Profile information is only created for imported characters.
+
+/include/talk_type.h
+- Updated header enabling new ooc verb to function
+
+/lib/player.c
+- Changed default channels new characters are assigned to. "gossip" became "public".
+
+/lib/talk.c
+- Added ooc verb handling to the list of 'talk' verbs
+
+/lib/std/room.c
+- Added ooc verb handling to cooperate with talk.c
+
+/news/creationno
+- Contains the news message to display when character creation is disabled with ENABLE_CREATION = 0
+
+/profiles - Stores profile infomration for imported characters.
+
+/secure/cfg/read.c
+- Added 'ASSIST' permissions on /secure/pending
+- Added 'all' permissions on /profile
+
+New races:
+/secure/cfg/races/tsuchigumo *
+/secure/cfg/races/youkai *
+/secure/cfg/races/yukionna *
+/secure/cfg/races/guest **
+
+* Placeholders for now, these are simply renamed copies of /secure/cfg/races/human
+** Not truly a race. This is used to restrict guest accounts. Guests cannot move, are invisible to other players, cannot be targeted, and can only speak in the public channel.
+
+/secure/daemon/chat.c
+- Added "public" to the list of valid public channels. 
+
+/secure/include/news.h
+/secure/include/lib.h
+/secure/include/dirs.h
+-References to new files made.
+
+/secure/lib/connect.c
+- Character import from file:
+When logging in, connect.c now checks if the account logging in is an admin. If it is, and files exist in the /pending folder, it attempts to read them and plug the data into the correct character generation functions and displays success or failure messages. Once finished, the admin is logged into the world as usual.
+- If a race extracted from an app does not exist, or is unplayable, /secure/cfg/races is searched for a matching race template file. If one is found, an attempt will be made to import it automatically.
+- Drop in replacement for the default connect.c. All original functionality should be intact and added features can be disabled by changing constants.
+- ENABLE_CREATION and ENABLE_IMPORT enable or disable the normal character creation and new character importing functions respectively. DEFAULT_PASS is used to set the default password for imported characters.
+
+/secure/lib/include/connect.h
+- Updated header for connect.c
+
+/secure/cmds/players/hist.h
+- Added code to enable pub shortcut to function with hist. Aliases make this pointless, but it's left as is for educational purposes.
+
+/secure/pending - This is where connect.c looks at upon login for characters to import. Four sample templates are included here. These should be stored as plaintext, Unix friendly files using the following template:
+
+Name: Name here
+Race: Race here
+Gender: Gender here
+Ability: Character ability here. *
+Personality: Personality here. *
+Description: Description here. *
+History: History here. *
+OC: No **
+
+* These are purely used for profile infomration called by the charprofile command.
+** Unused currently.
+
+/secure/save/players/g/guest.o
+-Edited guest save file included for debugging purposes. Ideally, the guest race should take care of setting the correct parameters upon login.
+
+New verbs:
+/verbs/common/pub.c This simply forwards 'pub' to 'public' as a shortcut. Aliases make this pointless, but it's left as is for educational purposes.
+/verbs/common/ooc.c This enables an ooc 'channel' for rooms. Works just like say, but should be used to keep ooc discussion seperated from the ic roleplay it pertains to.
+
+
