@@ -1,6 +1,6 @@
 Remnants of Storied Encounters Quick Setup and Important Information
 
-For Windows:
+For Windows: (Pending updated batch file and instructions)
 
 You must install and setup the dead souls mudlib first! ( http://dead-souls.net/ds-inst-faq.html ). After making an admin character, make a copy of the ds folder to c:\dsbackup as a backup to save yourself from headaches later. Once this is done, run "windows-update.bat" and follow the onscreen prompt.
 
@@ -8,7 +8,7 @@ For Linux:
 
 Install script and instructions pending.
 
-If all went well, you should have access to some changes and new features.
+Make sure you are in a terminal. Download and extract the latest Dead Souls mudlib to your directory of choice (http://lpmuds.net/files/deadsouls/ds3.8.6.zip most current as of writing).  Run './linux-install' in the base extracted RoSE directory. Follow all prompts to finish installation and start the server.
 
 New commands:
 /cmds/charprofile.c - Syntax: charprofile <charactername> If called without <charactername>, displays your character's profile information if it exists under /profiles. Calling with <charactername> it will display <charactername>'s profile information, if it exists. Profile information is only created for imported characters.

@@ -209,7 +209,7 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
                 tmp = who->GetName() + " " + tmp + ", \"";
                 tmp = tmp + "%^BOLD%^" + SpeakColor + msg + "%^RESET%^\"";
                 this_object()->eventPrint(tmp, MSG_CONV);
-                eventTalkHist(tmp, "say");
+                eventTalkHist(tmp, verb);
             }
             break;
 

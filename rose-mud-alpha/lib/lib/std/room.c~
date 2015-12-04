@@ -868,23 +868,23 @@ varargs mixed eventHearTalk(object who, object target, int cls, string verb,
             obs = get_livings(this_object(),1);
             if(query_privs(this_object()) != convert_name(who->GetName())) 
             {
-					room = "/log";
-               if(!directory_exists(room + base_name(this_object()) + "/"))
-					{
-               	string *elems = explode(base_name(this_object()), "/");
-	            	foreach(string subdir in elems)
-                  {       
-                		room = room + "/" + subdir;    
-							if(!directory_exists(room))
-                     {
-                     	mkdir(room);
-                     }
-		    			}
-             	}
-           		else room = room + base_name(this_object());
-           		write_file(room + "/say", clean_time(tz) + " " + who->GetName() + " " + pluralize(verb) + " in " + capitalize(who->GetDefaultLanguage()) + ", \"%^BOLD%^CYAN%^" + msg + "%^RESET%^\"");
-					if(last(read_file(room + "/say"), 2) != "\n")  write_file(room + "/say", "\n");
-	    		}
+		room = "/log";
+                if(!directory_exists(room + base_name(this_object()) + "/"))
+		{
+                    string *elems = explode(base_name(this_object()), "/");
+	            foreach(string subdir in elems)
+                    {       
+                	room = room + "/" + subdir;    
+			if(!directory_exists(room))
+                        {
+                            mkdir(room);
+                        }
+		    }
+                }
+                else room = room + base_name(this_object());
+		write_file(room + "/say", clean_time(tz) + " " + who->GetName() + " " + pluralize(verb) + " in " + capitalize(who->GetDefaultLanguage()) + ", \"%^BOLD%^CYAN%^" + msg + "%^RESET%^\"");
+	        if(last(read_file(room + "/say"), 2) != "\n")  write_file(room + "/say", "\n");
+	    }
             
             if(sizeof(obs)) obs -= ({ who });
             if(sizeof(obs))

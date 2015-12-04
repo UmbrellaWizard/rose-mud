@@ -1,0 +1,9 @@
+#!/bin/bash
+#Created by Umbrella Wizard 12/03/15
+
+cd ..
+cd fluffos-2.23-ds03
+./configure
+make install
+
+printf "\n\nDone.\n\nYou can now start the server with './startmud'\n\n"

@@ -1,3 +1,9 @@
+12-3-15
+Modified/created setup scripts for linux. Now installing/updating the server is easier than ever. See updated readme for details.
+Squashed bug introduced from OOC output, hist now correctly displays channel history again if it exists
+Local channel emotes are currently broken. They will display, but not in a neat way, and they will not be written to the channel history logs.
+Sample applications have been moved from /lib/pending to /lib/pending.samples. Simply move the contents of the latter back into the former if you want the original demonstration
+
 10-25-15 - Initial github alpha build
 Migrated project to github repository: https://github.com/UmbrellaWizard/rose-mud , updated patch scripts for linux and windows pending.
 Minor formatting cleanup for OOC command output.

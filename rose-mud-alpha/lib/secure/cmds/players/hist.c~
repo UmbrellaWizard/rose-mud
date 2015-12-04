@@ -106,12 +106,13 @@ mixed cmd(string args) {
     }
     talks = this_player()->GetTalkHistTypes();
     if(talks && member_array(gfile, talks) != -1){
-        string room = "/log" + base_name(environment(this_player()));
+        string room = "/log/room" + base_name(environment(this_player()));
         string ret2 = "Your "+gfile+" history: \n\n";
         int year = 0, month = 0, day = 0;
 
         if(gfile == "ooc" || gfile == "say")
-        {	 
+        {
+             room = "/log/room" + base_name(environment(this_player()));
              if(!file_exists(room + "/" + gfile )) return "Backlog for " + gfile + " is empty!";
              else room = room + "/" + gfile;
         }

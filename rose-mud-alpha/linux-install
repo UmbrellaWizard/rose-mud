@@ -1,0 +1,23 @@
+﻿#!/bin/bash
+clear
+#Created by Umbrella Wizard 12/03/15
+
+printf "\nPlease specify the root directory for your mud (ex. /home/username/ds):\n"
+	read MUDHOME 
+	while [  ! -f ""$MUDHOME"/bin/mudos.cfg" ]
+	do
+	   printf ""$MUDHOME" does not represent a valid Dead Souls root directory!\n"
+	   read MUDHOME 
+	done
+	BACKUPDIR="$MUDHOME-bak"
+if [ ! -d "$BACKUPDIR" ]
+then
+	mkdir "$BACKUPDIR"
+	cp -Rp -t "$BACKUPDIR" "$MUDHOME"
+	printf "Backup made to "$BACKUPDIR""
+else
+	printf "Backup already exists at "$BACKUPDIR""
+fi
+
+cp -fR -t "$MUDHOME" bin lib
+printf "\n\nType cd \""$MUDHOME"/bin\". First time installations will need to build the driver with './makedriver'. Otherwise run './startmud' and follow any prompts if they appear. Once the server is running, you can login via any telnet client, default port is 6666.\n\n"
