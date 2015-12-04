@@ -6,8 +6,6 @@ You must install and setup the dead souls mudlib first! ( http://dead-souls.net/
 
 For Linux:
 
-Install script and instructions pending.
-
 Make sure you are in a terminal. Download and extract the latest Dead Souls mudlib to your directory of choice (http://lpmuds.net/files/deadsouls/ds3.8.6.zip most current as of writing).  Run './linux-install' in the base extracted RoSE directory. Follow all prompts to finish installation and start the server.
 
 New commands:
